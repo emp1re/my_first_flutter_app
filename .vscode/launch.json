@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Dart Playground",
+      "type": "dart",
+      "request": "launch",
+      "program": "дши/main.dart",
+      "args": ["--example", "42"]
+    },
+    {
+      "name": "Run Tests",
+      "type": "dart",
+      "request": "launch",
+      "program": "test/utils_test.dart"
+    }
+  ]
+}

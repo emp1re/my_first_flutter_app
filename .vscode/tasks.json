@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dart: pub get",
+      "type": "shell",
+      "command": "dart",
+      "args": ["pub", "get"],
+      "problemMatcher": []
+    },
+    {
+      "label": "dart: run",
+      "type": "shell",
+      "command": "dart",
+      "args": ["run", "bin/main.dart"],
+      "problemMatcher": []
+    },
+    {
+      "label": "dart: test",
+      "type": "shell",
+      "command": "dart",
+      "args": ["test"],
+      "problemMatcher": []
+    }
+  ]
+}
