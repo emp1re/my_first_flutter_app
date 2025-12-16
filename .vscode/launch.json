@@ -5,7 +5,7 @@
       "name": "Run Dart Playground",
       "type": "dart",
       "request": "launch",
-      "program": "дши/main.dart",
+      "program": "lib/main.dart",
       "args": ["--example", "42"]
     },
     {

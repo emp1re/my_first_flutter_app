@@ -1,18 +1,32 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter_application/presentation/dice/dice_screen.dart';
+import 'package:my_first_flutter_application/presentation/dice/random_dice.dart';
+import 'package:my_first_flutter_application/presentation/quiz/quiz_game.dart';
 
-Map<int, String> diceMap = {
-  0: 'assets/images/1_dot.png',
-  1: 'assets/images/2_dots.png',
-  2: 'assets/images/3_dots.png',
-  3: 'assets/images/4_dots.png',
-  4: 'assets/images/5_dots.png',
-  5: 'assets/images/6_dots.png',
-};
+enum pageType { quiz, dice }
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
+  void nextPage({required BuildContext context, required String pageType}) {
+    // Navigate to the game screen or start the game logic
+
+    if (pageType == 'dice') {
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(builder: (context) => const DiceScreen()),
+      );
+    } else if (pageType == 'quiz') {
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(builder: (context) => const Quiz()),
+      );
+    } else {
+      // Handle unknown page type
+      throw Exception('Unknown page type: $pageType');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +44,42 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              style: TextStyle(fontSize: 24, color: Colors.white),
-              'Hello, Flutter!',
+            NewTextContainer(
+              text: "Hello, Flutter!",
+              Style: const TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
-            RandomDice()
+            NewTextContainer(
+              text: "Welcome to the Flutter App.",
+              Style: const TextStyle(fontSize: 20, color: Colors.white70),
+            ),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.white),
+                textStyle: const TextStyle(color: Colors.white),
+              ),
+              onPressed: () => nextPage(context: context, pageType: 'quiz'),
+              child: const Text(
+                'Quiz Game',
+                style: TextStyle(color: Color.fromARGB(255, 208, 199, 255)),
+              ),
+            ),
+            SizedBox(height: 5),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: Colors.white),
+                textStyle: const TextStyle(color: Colors.white),
+              ),
+              onPressed: () => nextPage(context: context, pageType: 'dice'),
+              child: const Text(
+                'Dice Game',
+                style: TextStyle(color: Color.fromARGB(255, 208, 199, 255)),
+              ),
+            ),
+            // RandomDice()
           ],
         ),
       ),
@@ -42,33 +87,14 @@ class WelcomeScreen extends StatelessWidget {
   }
 }
 
-class RandomDice extends StatefulWidget {
-  const RandomDice({super.key});
-  @override
-  State<RandomDice> createState() => _RandomDiceState();
-}
+class NewTextContainer extends StatelessWidget {
+  const NewTextContainer({super.key, required this.text, required this.Style});
 
-class _RandomDiceState extends State<RandomDice> {
-  final rand = Random();
-  int num = 0;
+  final String text;
+  final TextStyle Style;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Column(
-        children: [
-          Image.asset(diceMap[num]!, width: 150, height: 150),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                num = rand.nextInt(6);
-              });
-            },
-            child: const Icon(Icons.casino),
-          ),
-        ],
-      ),
-    );
+    return Text(text, style: Style);
   }
 }

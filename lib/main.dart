@@ -7,7 +7,9 @@ void main() {
       home: Scaffold(
         backgroundColor: Colors.blueGrey,
         appBar: CustomAppBar(),
-        body: WelcomeScreen(),
+        body: WelcomeScreen(
+        
+        ), 
         bottomNavigationBar: CustomBottomBar(),
       ),
     ),
