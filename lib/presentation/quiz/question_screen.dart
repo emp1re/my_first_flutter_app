@@ -2,23 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:my_first_flutter_application/presentation/quiz/answer_button.dart';
 import 'package:my_first_flutter_application/presentation/quiz/question_storage.dart';
 
-class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
 
+
+class QuestionScreen extends StatefulWidget {
+  const QuestionScreen(this.chooseAnswer, {super.key});
+  final void Function(String) chooseAnswer;
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  var  currentQuestionIndex = 0;
+  var currentQuestionIndex = 0;
 
-  void answerQuestion() {
-      setState(() {
-        if (currentQuestionIndex < questions.length - 1){
-            currentQuestionIndex++; 
-        }
-      });
+  void answerQuestion(String selectedAnswer) {
+    widget.chooseAnswer(selectedAnswer);
+    setState(() {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+      }else if (currentQuestionIndex == questions.length - 1) {
+        currentQuestionIndex = 0;
+      }
+      // Pass a dummy value for now
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,20 +38,24 @@ class _QuestionScreenState extends State<QuestionScreen> {
       ),
       child: Container(
         margin: const EdgeInsets.all(30),
-        child: Column(  
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          
+
           children: [
             Text(
               questions[currentQuestionIndex].questionText,
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 32, color: Colors.white),
             ),
-            ...questions[currentQuestionIndex].answerOptions.map((option) {
-              return AnswerButton(answerText: option, onTap: answerQuestion);
+            ...questions[currentQuestionIndex].answerOptions.keys.map((answerText) {
+              return AnswerButton(
+                answerText: answerText,
+                onTap: () {
+                  answerQuestion(
+                    answerText
+                  );
+                },
+              );
             }),
           ],
         ),

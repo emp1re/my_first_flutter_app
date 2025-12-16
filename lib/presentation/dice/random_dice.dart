@@ -34,6 +34,7 @@ class _RandomDiceState extends State<RandomDice> {
                 num = rand.nextInt(6);
               });
             },
+
             child: const Icon(Icons.casino),
             
           ),

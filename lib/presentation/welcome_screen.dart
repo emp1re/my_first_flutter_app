@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:my_first_flutter_application/presentation/dice/dice_screen.dart';
-import 'package:my_first_flutter_application/presentation/dice/random_dice.dart';
 import 'package:my_first_flutter_application/presentation/quiz/quiz_game.dart';
 
 enum pageType { quiz, dice }
@@ -30,8 +27,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rand = Random(context.hashCode);
-    int num = 0;
+  
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
