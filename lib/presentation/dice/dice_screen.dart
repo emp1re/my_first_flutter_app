@@ -7,6 +7,12 @@ class DiceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 245, 219, 76),
+        title: const Text('Dice Game'),
+          actions: const [
+        ],
+      ),  
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -28,12 +34,6 @@ class DiceScreen extends StatelessWidget {
               ),
               RandomDice(),
               SizedBox(height: 20,),
-              BackButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                
-              ),
             ],
           )
         ),

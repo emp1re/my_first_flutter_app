@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'presentation/welcome_screen.dart';
 void main() {
   runApp(
-    const MaterialApp(
-      title: "Flutter Demo",
-      home: Scaffold(
-        backgroundColor: Colors.blueGrey,
-        appBar: CustomAppBar(),
-        body: WelcomeScreen(
-        
-        ), 
-        bottomNavigationBar: CustomBottomBar(),
+    ProviderScope(
+      child: const MaterialApp(
+        title: "Flutter Demo",
+        home: Scaffold(
+          backgroundColor: Colors.blueGrey,
+          appBar: CustomAppBar(),
+          body: WelcomeScreen(
+          
+          ), 
+          bottomNavigationBar: CustomBottomBar(),
+        ),
       ),
     ),
   );

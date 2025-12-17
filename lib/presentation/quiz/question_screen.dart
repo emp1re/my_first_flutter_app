@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_application/presentation/quiz/answer_button.dart';
-import 'package:my_first_flutter_application/presentation/quiz/question_storage.dart';
+import 'package:my_first_flutter_application/presentation/quiz/models/answer_button.dart';
+import 'package:my_first_flutter_application/presentation/quiz/models/question_storage.dart';
 
 
 

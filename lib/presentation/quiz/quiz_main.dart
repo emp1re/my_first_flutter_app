@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_flutter_application/presentation/quiz/question_screen.dart';
-import 'question_storage.dart';
+import 'package:my_first_flutter_application/presentation/garage_sales/shared/cart_icon.dart';
+import 'models/question_storage.dart';
 import 'quiz_screen.dart';
 import 'result_screen.dart';
 
@@ -46,6 +47,11 @@ class _QuizState extends State<Quiz> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 245, 219, 76),
+        title: const Text('Quiz Game'),
+        actions: const [],
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

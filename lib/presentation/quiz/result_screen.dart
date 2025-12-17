@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_application/presentation/quiz/question_storage.dart';
-import 'quize_summary.dart';
+import 'package:my_first_flutter_application/presentation/quiz/models/question_storage.dart';
+import 'models/quize_summary.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen(this.selectedAnswers, {super.key});
   final List<String> selectedAnswers;
 
-  List<Map<String, Object>> getSummaryData() {
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
     for (var i = 0; i < selectedAnswers.length; i++) {
       summary.add({
@@ -23,11 +23,10 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final numTotalQuestions = questions.length;
-    final numCorrectQuestions = summaryData.where((data) {
-      return data['selected_answer'] == data['correct_answer'];
-    }).length;
+    final numCorrectQuestions = summaryData.where((data) => 
+      data['selected_answer'] == data['correct_answer']
+    ).length;
 
     return SizedBox(
       width: double.infinity,
@@ -57,7 +56,7 @@ class ResultScreen extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: Text(
-                'Restart Quiz',
+                'Back to Home',
                 style: TextStyle(color: Colors.white),
               ),
             ),

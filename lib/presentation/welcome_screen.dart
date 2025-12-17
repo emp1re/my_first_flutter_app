@@ -1,33 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_flutter_application/presentation/dice/dice_screen.dart';
-import 'package:my_first_flutter_application/presentation/quiz/quiz_game.dart';
+import 'package:my_first_flutter_application/presentation/quiz/quiz_main.dart';
+import 'package:my_first_flutter_application/presentation/garage_sales/screens/home/home_screen.dart';
+import 'package:my_first_flutter_application/presentation/stock/stock_screen.dart';
 
-enum pageType { quiz, dice }
+enum pageType { quiz, dice, garage }
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
   void nextPage({required BuildContext context, required String pageType}) {
-    // Navigate to the game screen or start the game logic
-
-    if (pageType == 'dice') {
-      Navigator.push(
-        context,
-        MaterialPageRoute<void>(builder: (context) => const DiceScreen()),
-      );
-    } else if (pageType == 'quiz') {
-      Navigator.push(
-        context,
-        MaterialPageRoute<void>(builder: (context) => const Quiz()),
-      );
-    } else {
-      // Handle unknown page type
-      throw Exception('Unknown page type: $pageType');
+  
+    switch (pageType) {
+      case 'dice':
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(builder: (context) => const DiceScreen()),
+        );
+        break;
+      case 'quiz':
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(builder: (context) => const Quiz()),
+        );
+        break;
+      case 'garage':
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => const HomeScreen(),
+          ), 
+        );
+        break;
+        case 'stock':
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(builder: (context) => ProviderScope(child: const StockScreen())),
+        );
+        break;
+      default:
+        // Handle unknown page type
+        throw Exception('Unknown page type: $pageType');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-  
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -52,30 +70,24 @@ class WelcomeScreen extends StatelessWidget {
               text: "Welcome to the Flutter App.",
               Style: const TextStyle(fontSize: 20, color: Colors.white70),
             ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.white),
-                textStyle: const TextStyle(color: Colors.white),
-              ),
+            MenuButton(
+              text: 'Quiz Game',
               onPressed: () => nextPage(context: context, pageType: 'quiz'),
-              child: const Text(
-                'Quiz Game',
-                style: TextStyle(color: Color.fromARGB(255, 208, 199, 255)),
-              ),
             ),
             SizedBox(height: 5),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.white),
-                textStyle: const TextStyle(color: Colors.white),
-              ),
+            MenuButton(
+              text: 'Dice Game',
               onPressed: () => nextPage(context: context, pageType: 'dice'),
-              child: const Text(
-                'Dice Game',
-                style: TextStyle(color: Color.fromARGB(255, 208, 199, 255)),
-              ),
             ),
-            // RandomDice()
+            SizedBox(height: 5),
+            MenuButton(
+              text: 'Garage Sales',
+              onPressed: () => nextPage(context: context, pageType: 'garage'),
+            ),
+            SizedBox(height: 5),
+            MenuButton(text: "Stock game",
+            onPressed: () => nextPage(context: context, pageType: 'stock'),
+            ),
           ],
         ),
       ),
@@ -92,5 +104,28 @@ class NewTextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text, style: Style);
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  const MenuButton({super.key, required this.text, required this.onPressed});
+
+  final String text;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(color: Colors.white),
+        textStyle: const TextStyle(color: Colors.white),
+        minimumSize: const Size(150, 40),
+      ),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(color: Color.fromARGB(255, 208, 199, 255)),
+      ),
+    );
   }
 }
